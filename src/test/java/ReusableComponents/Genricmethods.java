@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -22,7 +23,8 @@ public class Genricmethods {
 	public void browserSetup(String browser) {
 		switch (browser.toUpperCase()) {
 		case "CHROME":
-			System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "\\Drivers\\ChromeDriver\\chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver",
+					System.getProperty("user.dir") + "\\Drivers\\ChromeDriver\\chromedriver.exe");
 			DesiredCapabilities capabilities = new DesiredCapabilities();
 			ChromeOptions options = new ChromeOptions();
 			options.addArguments("--ignore--ssl-errors=yes");
@@ -32,7 +34,7 @@ public class Genricmethods {
 			options.addArguments("force-device-scale-factor=0.98");
 			options.addArguments("high-dpi-support=0.98");
 			options.addArguments("--disable-gpu");
-			//options.addArguments("--headless");
+			// options.addArguments("--headless");
 			capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 			Publicvariables.setDriver(new ChromeDriver(options));
 			Publicvariables.getDriver().manage().window().maximize();
@@ -47,13 +49,26 @@ public class Genricmethods {
 	public void launchUrl(String url) {
 		try {
 			Publicvariables.getDriver().get(url);
-			System.out.println("Able to navigate to url");
-			Reporting.writeToReport("PASS", "URL correct");
+			Reporting.writeToReport("PASS", "Able to navigate to url");
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.out.println("Not able to navigate to url "+e.getMessage());
+			System.out.println("Not able to navigate to url " + e.getMessage());
 		}
 	}
+
+	public void clickOnSales() {
+		try {
+			Publicvariables.getDriver()
+					.findElement(
+							By.xpath("//div[@class='d-flex web-menu-btn']//button[contains(text(),'Contact Sales')]"))
+					.click();
+			Reporting.writeToReport("PASS", "Able to click on contact sales");
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Not able to click on contact sales " + e.getMessage());
+		}
+	}
+
 	public String getConfigPropValue(String propPram) throws IOException {
 		Properties prop = new Properties();
 		FileInputStream fs = new FileInputStream(
@@ -62,10 +77,9 @@ public class Genricmethods {
 		return prop.getProperty(propPram);
 
 	}
-	
+
 	public static String currentTimeStamp() {
-			String timestamp = new SimpleDateFormat("MMddHHmm").format(new Date());
-			return timestamp;
+		String timestamp = new SimpleDateFormat("MMddHHmm").format(new Date());
+		return timestamp;
 	}
-	
 }

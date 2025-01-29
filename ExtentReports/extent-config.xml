@@ -23,10 +23,10 @@
         <!-- top, bottom -->
         <testViewChartLocation>bottom</testViewChartLocation>
 		
-		<!--<enableCategoryView>true</enableCategoryView>
+		<enableCategoryView>true</enableCategoryView>
 		<enableAuthorView>false</enableAuthorView>
 		<enableExceptionView>true</enableExceptionView>
-		<enableTestRunnerLogsView>true</enableTestRunnerLogsView> -->
+		<enableTestRunnerLogsView>true</enableTestRunnerLogsView>
         
         <!-- custom javascript -->
         <scripts>

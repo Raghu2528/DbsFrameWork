@@ -14,11 +14,9 @@ public class TestCase1 extends BaseTest{
 
 	@Test(groups ="Regression")
 	public void testCase1(Method m) throws IOException {
-		System.out.println("TestCaseStarted" +m.getName());
 		String url = getConfigPropValue("AppURL");
-		System.out.println(url);
 		launchUrl(url);
-		Reporting.writeToReport("PASS", "Login");
+		clickOnSales();
 	}
 }
  

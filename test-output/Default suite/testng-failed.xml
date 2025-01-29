@@ -5,11 +5,11 @@
     <classes>
       <class name="TestCases.TestCase1">
         <methods>
+          <include name="flushReport"/>
           <include name="testCase1" invocation-numbers="0"/>
           <include name="m1"/>
           <include name="close"/>
           <include name="init"/>
-          <include name="endsuite"/>
         </methods>
       </class> <!-- TestCases.TestCase1 -->
     </classes>

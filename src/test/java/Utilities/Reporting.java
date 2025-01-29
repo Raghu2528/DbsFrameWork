@@ -29,7 +29,7 @@ public class Reporting implements ITestListener{
 	public static Logger log;
 	public static ExtentReports extent;
 	public static ExtentSparkReporter htmlReporter;
-	public static String filepath = System.getProperty("user.dir") + "/ExtentReports/"+Genricmethods.currentTimeStamp()+".html";
+	public static String filepath = System.getProperty("user.dir") + "/ExtentReports/Report"+Genricmethods.currentTimeStamp()+".html";
 	public static ThreadLocal<ExtentTest>test = new ThreadLocal<>();
 	static String methodname;
 	static String stDate = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
@@ -102,14 +102,15 @@ public class Reporting implements ITestListener{
 	public void onTestSuccess(ITestResult result) {
 		getExtentTest().assignCategory(result.getMethod().getGroups());
 		getExtentTest().log(Status.PASS, MarkupHelper.createLabel("Test Passed Successfully!"+ "for screenshot path:"
-				+ "<a style=\"text-decoration:none;color:red;href="+getScreenshots()+">Click Here</a>", ExtentColor.GREEN));
+				+ "<a style=\"text-decoration:none;color:red;\"href=" + getScreenshots() + ">Click Here</a>",
+				ExtentColor.GREEN));
 	}
 	
 	public void onTestFailure(ITestResult result) {
 		getExtentTest().assignCategory(result.getMethod().getGroups());
 		getExtentTest().log(Status.FAIL,
 				MarkupHelper.createLabel("Test Execution Failed!" + "for screenshot path:"
-						+ "<a style=\"text-decoration:none;color:red;href=" + getScreenshots() + ">Click Here</a>",
+						+ "<a style=\"text-decoration:none;color:red;\"href=" + getScreenshots() + ">Click Here</a>",
 						ExtentColor.RED));
 	}
 	
@@ -132,12 +133,13 @@ public class Reporting implements ITestListener{
 	public static String getScreenshots() {
 		String screenpath =null;
 		try {
+			String stDate1 = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
 			TakesScreenshot ts = null;
 			ts=(TakesScreenshot) Publicvariables.getDriver();
 			File source=ts.getScreenshotAs(OutputType.FILE);
 			String screenshotpath = System.getProperty("user.dir") + "/ExtentReports/Screenshots/" + testCaseName()
-					+ "/" + stDate + "/" + stDate + ".png";
-			screenpath ="./Screenshots"+testCaseName()+ "/" + stDate + "/" + stDate + ".png";
+					+ "/" +stDate+ "/" + "R"+stDate1 + ".png";
+			screenpath ="./Screenshots/"+testCaseName()+ "/" +stDate+ "/" +"R"+ stDate1 + ".png";
 			File Desti = new File(screenshotpath);
 			FileUtils.copyFile(source, Desti);
 		} catch (Exception e) {
@@ -151,8 +153,9 @@ public class Reporting implements ITestListener{
 		switch (status.toUpperCase()) {
 		case "PASS":
 			try {
-				String sceenshotPath = getScreenshots();
-				getExtentTest().log(Status.PASS, desc.toUpperCase()+"Screenshot path:"+"<a href="+sceenshotPath+">Click Here</a");
+				getExtentTest().log(Status.PASS, MarkupHelper.createLabel(desc.toUpperCase()+ "for screenshot path:"
+						+ "<a style=\"text-decoration:none;color:red;\"href=" + getScreenshots() + ">Click Here</a>",
+						ExtentColor.GREEN));
 			} catch (Exception e) {
 				// TODO: handle exception
 				getExtentTest().log(Status.PASS, desc.toUpperCase());
@@ -161,14 +164,15 @@ public class Reporting implements ITestListener{
 		case "INFO":
 			try {
 				getExtentTest().info(desc);
-				log.info(desc.toUpperCase());
 			} catch (Exception e) {
 				getExtentTest().info(desc);
 			}
 		case "FAIL":
 			try {
-				String sceenshotPath = getScreenshots();
-				getExtentTest().log(Status.FAIL, desc.toUpperCase()+"Screenshot path:"+"<a href="+sceenshotPath+">Click Here</a");
+				getExtentTest().log(Status.FAIL,
+						MarkupHelper.createLabel(desc.toUpperCase() + "for screenshot path:"
+								+ "<a style=\"text-decoration:none;color:red;\"href=" + getScreenshots() + ">Click Here</a>",
+								ExtentColor.RED));
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
