@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite" parallel="none">
+	<listeners>
+		<listener class-name="Utilities.Reporting"></listener>
+	</listeners>
+	<test name="Test" parallel="methods" thread-count="1">
+		<groups>
+			<run>
+				<include name="Regression"></include>
+			</run>
+		</groups>
+		<classes>
+			<class name="TestCases.TestCase1">
+				<methods>
+					<include name="testCase1" />
+				</methods>
+			</class>
+		</classes>
+	</test> <!-- Test -->
+</suite> <!-- Suite -->
